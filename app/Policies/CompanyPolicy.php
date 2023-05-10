@@ -6,147 +6,159 @@ use App\Models\Admin;
 use App\Models\Company;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Auth\Access\Authorizable;
+
+
 
 class CompanyPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the admin can view any models.
+     * Determine whether the authorizable can view any models.
      *
-     * @param  Admin  $admin
+     * @param Authorizable $authorizable
      * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function viewAny(Admin $admin): Response|bool
+    public function viewAny(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('view_any_company');
+        return $authorizable->can('view_any_company');
     }
 
     /**
-     * Determine whether the admin can view the model.
+     * Determine whether the authorizable can view the model.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Company $company
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function view(Admin $admin, Company $company): Response|bool
+    public function view(Authorizable $authorizable, Company $company): Response|bool
     {
-        return $admin->can('view_company');
+        return $authorizable->can('view_company');
     }
 
     /**
-     * Determine whether the admin can create models.
+     * Determine whether the authorizable can create models.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function create(Admin $admin): Response|bool
+    public function create(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('create_company');
+        return $authorizable->can('create_company');
     }
 
     /**
-     * Determine whether the admin can update the model.
+     * Determine whether the authorizable can update the model.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Company $company
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function update(Admin $admin, Company $company): Response|bool
+    public function update(Authorizable $authorizable, Company $company): Response|bool
     {
-        return $admin->can('update_company');
+        return $authorizable->can('update_company');
     }
 
     /**
-     * Determine whether the admin can delete the model.
+     * Determine whether the authorizable can delete the model.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Company $company
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function delete(Admin $admin, Company $company): Response|bool
+    public function delete(Authorizable $authorizable, Company $company): Response|bool
     {
-        return $admin->can('delete_company');
+        return $authorizable->can('delete_company');
     }
 
     /**
-     * Determine whether the admin can bulk delete.
+     * Determine whether the authorizable can bulk delete.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function deleteAny(Admin $admin): Response|bool
+    public function deleteAny(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('delete_any_company');
+        return $authorizable->can('delete_any_company');
     }
 
     /**
-     * Determine whether the admin can permanently delete.
+     * Determine whether the authorizable can permanently delete.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Company $company
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function forceDelete(Admin $admin, Company $company): Response|bool
+    public function forceDelete(Authorizable $authorizable, Company $company): Response|bool
     {
-        return $admin->can('force_delete_company');
+        return $authorizable->can('force_delete_company');
     }
 
     /**
-     * Determine whether the admin can permanently bulk delete.
+     * Determine whether the authorizable can permanently bulk delete.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function forceDeleteAny(Admin $admin): Response|bool
+    public function forceDeleteAny(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('force_delete_any_company');
+        return $authorizable->can('force_delete_any_company');
     }
 
     /**
      * Determine whether the admin can restore.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Company $company
+     * @return Response|bool
      */
-    public function restore(Admin $admin, Company $company): Response|bool
+    public function restore(Authorizable $authorizable, Company $company): Response|bool
     {
-        return $admin->can('restore_company');
+        return $authorizable->can('restore_company');
     }
 
     /**
      * Determine whether the admin can bulk restore.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
      */
-    public function restoreAny(Admin $admin): Response|bool
+    public function restoreAny(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('restore_any_company');
+        return $authorizable->can('restore_any_company');
     }
 
     /**
      * Determine whether the admin can replicate.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param  Company  $company
+     * @return Response|bool
      */
-    public function replicate(Admin $admin, Company $company): Response|bool
+    public function replicate(Authorizable $authorizable, Company $company): Response|bool
     {
-        return $admin->can('replicate_company');
+        return $authorizable->can('replicate_company');
     }
 
     /**
      * Determine whether the admin can reorder.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
      */
-    public function reorder(Admin $admin): Response|bool
+    public function reorder(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('reorder_company');
+        return $authorizable->can('reorder_company');
     }
 
 }

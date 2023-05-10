@@ -2,150 +2,162 @@
 
 namespace App\Policies;
 
-use App\Models\Admin;
 use App\Models\Stype;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Auth\Access\Authorizable;
+
+
 
 class StypePolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the admin can view any models.
+     * Determine whether the authorizable can view any models.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function viewAny(Admin $admin)
+    public function viewAny(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('view_any_stype');
+        return $authorizable->can('view_any_stype');
     }
 
     /**
-     * Determine whether the admin can view the model.
+     * Determine whether the authorizable can view the model.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Stype  $stype
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Stype $stype
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function view(Admin $admin, Stype $stype)
+    public function view(Authorizable $authorizable, Stype $stype): Response|bool
     {
-        return $admin->can('view_stype');
+        return $authorizable->can('view_stype');
     }
 
     /**
-     * Determine whether the admin can create models.
+     * Determine whether the authorizable can create models.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function create(Admin $admin)
+    public function create(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('create_stype');
+        return $authorizable->can('create_stype');
     }
 
     /**
-     * Determine whether the admin can update the model.
+     * Determine whether the authorizable can update the model.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Stype  $stype
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Stype $stype
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function update(Admin $admin, Stype $stype)
+    public function update(Authorizable $authorizable, Stype $stype): Response|bool
     {
-        return $admin->can('update_stype');
+        return $authorizable->can('update_stype');
     }
 
     /**
-     * Determine whether the admin can delete the model.
+     * Determine whether the authorizable can delete the model.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Stype  $stype
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Stype $stype
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function delete(Admin $admin, Stype $stype)
+    public function delete(Authorizable $authorizable, Stype $stype): Response|bool
     {
-        return $admin->can('delete_stype');
+        return $authorizable->can('delete_stype');
     }
 
     /**
-     * Determine whether the admin can bulk delete.
+     * Determine whether the authorizable can bulk delete.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function deleteAny(Admin $admin)
+    public function deleteAny(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('delete_any_stype');
+        return $authorizable->can('delete_any_stype');
     }
 
     /**
-     * Determine whether the admin can permanently delete.
+     * Determine whether the authorizable can permanently delete.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Stype  $stype
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Stype $stype
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function forceDelete(Admin $admin, Stype $stype)
+    public function forceDelete(Authorizable $authorizable, Stype $stype): Response|bool
     {
-        return $admin->can('force_delete_stype');
+        return $authorizable->can('force_delete_stype');
     }
 
     /**
-     * Determine whether the admin can permanently bulk delete.
+     * Determine whether the authorizable can permanently bulk delete.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function forceDeleteAny(Admin $admin)
+    public function forceDeleteAny(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('force_delete_any_stype');
+        return $authorizable->can('force_delete_any_stype');
     }
 
     /**
      * Determine whether the admin can restore.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Stype  $stype
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Stype $stype
+     * @return Response|bool
      */
-    public function restore(Admin $admin, Stype $stype)
+    public function restore(Authorizable $authorizable, Stype $stype): Response|bool
     {
-        return $admin->can('restore_stype');
+        return $authorizable->can('restore_stype');
     }
 
     /**
      * Determine whether the admin can bulk restore.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
      */
-    public function restoreAny(Admin $admin)
+    public function restoreAny(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('restore_any_stype');
+        return $authorizable->can('restore_any_stype');
     }
 
     /**
      * Determine whether the admin can replicate.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Stype  $stype
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Stype $stype
+     * @return Response|bool
      */
-    public function replicate(Admin $admin, Stype $stype)
+    public function replicate(Authorizable $authorizable, Stype $stype): Response|bool
     {
-        return $admin->can('replicate_stype');
+        return $authorizable->can('replicate_stype');
     }
 
     /**
      * Determine whether the admin can reorder.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
      */
-    public function reorder(Admin $admin)
+    public function reorder(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('reorder_stype');
+        return $authorizable->can('reorder_stype');
     }
 
 }

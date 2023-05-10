@@ -16,7 +16,6 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->string('name')->unique();
             $table->string('diminutive')->nullable();
-            $table->string('type')->nullable();
 
 
             $table->mediumText('description')->nullable();
@@ -39,6 +38,9 @@ return new class extends Migration
             $table->string('full_address')->virtualAs(
                 "CONCAT(street, ', ', zip, ' ', city, ', ', country)"
             );
+
+            $table->foreignId('otype_id')->nullable()->constrained()->nullOnDelete();
+
 
 
             $table->softDeletes();

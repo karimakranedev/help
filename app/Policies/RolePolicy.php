@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Admin;
+use Illuminate\Auth\Access\Response;
 use Spatie\Permission\Models\Role;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -13,10 +14,10 @@ class RolePolicy
     /**
      * Determine whether the admin can view any models.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Admin $admin
+     * @return Response|bool
      */
-    public function viewAny(Admin $admin)
+    public function viewAny(Admin $admin):Response|bool
     {
         return $admin->can('view_any_shield::role');
     }
@@ -24,11 +25,11 @@ class RolePolicy
     /**
      * Determine whether the admin can view the model.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \Spatie\Permission\Models\Role  $role
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Admin $admin
+     * @param Role $role
+     * @return Response|bool
      */
-    public function view(Admin $admin, Role $role)
+    public function view(Admin $admin, Role $role):Response|bool
     {
         return $admin->can('view_shield::role');
     }
@@ -36,10 +37,10 @@ class RolePolicy
     /**
      * Determine whether the admin can create models.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Admin $admin
+     * @return Response|bool
      */
-    public function create(Admin $admin)
+    public function create(Admin $admin):Response|bool
     {
         return $admin->can('create_shield::role');
     }
@@ -47,11 +48,11 @@ class RolePolicy
     /**
      * Determine whether the admin can update the model.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \Spatie\Permission\Models\Role  $role
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Admin $admin
+     * @param Role $role
+     * @return Response|bool
      */
-    public function update(Admin $admin, Role $role)
+    public function update(Admin $admin, Role $role):Response|bool
     {
         return $admin->can('update_shield::role');
     }
@@ -59,11 +60,11 @@ class RolePolicy
     /**
      * Determine whether the admin can delete the model.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \Spatie\Permission\Models\Role  $role
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Admin $admin
+     * @param Role $role
+     * @return Response|bool
      */
-    public function delete(Admin $admin, Role $role)
+    public function delete(Admin $admin, Role $role):Response|bool
     {
         return $admin->can('delete_shield::role');
     }
@@ -71,10 +72,10 @@ class RolePolicy
     /**
      * Determine whether the admin can bulk delete.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Admin $admin
+     * @return Response|bool
      */
-    public function deleteAny(Admin $admin)
+    public function deleteAny(Admin $admin):Response|bool
     {
         return $admin->can('delete_any_shield::role');
     }
@@ -82,11 +83,11 @@ class RolePolicy
     /**
      * Determine whether the admin can permanently delete.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \Spatie\Permission\Models\Role  $role
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Admin $admin
+     * @param Role $role
+     * @return Response|bool
      */
-    public function forceDelete(Admin $admin, Role $role)
+    public function forceDelete(Admin $admin, Role $role):Response|bool
     {
         return $admin->can('{{ ForceDelete }}');
     }
@@ -94,10 +95,10 @@ class RolePolicy
     /**
      * Determine whether the admin can permanently bulk delete.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Admin $admin
+     * @return Response|bool
      */
-    public function forceDeleteAny(Admin $admin)
+    public function forceDeleteAny(Admin $admin):Response|bool
     {
         return $admin->can('{{ ForceDeleteAny }}');
     }
@@ -105,11 +106,11 @@ class RolePolicy
     /**
      * Determine whether the admin can restore.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \Spatie\Permission\Models\Role  $role
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Admin $admin
+     * @param Role $role
+     * @return Response|bool
      */
-    public function restore(Admin $admin, Role $role)
+    public function restore(Admin $admin, Role $role):Response|bool
     {
         return $admin->can('{{ Restore }}');
     }
@@ -117,10 +118,10 @@ class RolePolicy
     /**
      * Determine whether the admin can bulk restore.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Admin $admin
+     * @return Response|bool
      */
-    public function restoreAny(Admin $admin)
+    public function restoreAny(Admin $admin):Response|bool
     {
         return $admin->can('{{ RestoreAny }}');
     }
@@ -128,11 +129,11 @@ class RolePolicy
     /**
      * Determine whether the admin can replicate.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \Spatie\Permission\Models\Role  $role
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Admin $admin
+     * @param Role $role
+     * @return Response|bool
      */
-    public function replicate(Admin $admin, Role $role)
+    public function replicate(Admin $admin, Role $role):Response|bool
     {
         return $admin->can('{{ Replicate }}');
     }
@@ -140,10 +141,10 @@ class RolePolicy
     /**
      * Determine whether the admin can reorder.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Admin $admin
+     * @return Response|bool
      */
-    public function reorder(Admin $admin)
+    public function reorder(Admin $admin):Response|bool
     {
         return $admin->can('{{ Reorder }}');
     }

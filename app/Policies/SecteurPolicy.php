@@ -2,150 +2,162 @@
 
 namespace App\Policies;
 
-use App\Models\Admin;
 use App\Models\Secteur;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Auth\Access\Authorizable;
+
+
 
 class SecteurPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the admin can view any models.
+     * Determine whether the authorizable can view any models.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function viewAny(Admin $admin)
+    public function viewAny(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('view_any_secteur');
+        return $authorizable->can('view_any_secteur');
     }
 
     /**
-     * Determine whether the admin can view the model.
+     * Determine whether the authorizable can view the model.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Secteur  $secteur
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Secteur $secteur
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function view(Admin $admin, Secteur $secteur)
+    public function view(Authorizable $authorizable, Secteur $secteur): Response|bool
     {
-        return $admin->can('view_secteur');
+        return $authorizable->can('view_secteur');
     }
 
     /**
-     * Determine whether the admin can create models.
+     * Determine whether the authorizable can create models.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function create(Admin $admin)
+    public function create(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('create_secteur');
+        return $authorizable->can('create_secteur');
     }
 
     /**
-     * Determine whether the admin can update the model.
+     * Determine whether the authorizable can update the model.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Secteur  $secteur
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Secteur $secteur
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function update(Admin $admin, Secteur $secteur)
+    public function update(Authorizable $authorizable, Secteur $secteur): Response|bool
     {
-        return $admin->can('update_secteur');
+        return $authorizable->can('update_secteur');
     }
 
     /**
-     * Determine whether the admin can delete the model.
+     * Determine whether the authorizable can delete the model.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Secteur  $secteur
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Secteur $secteur
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function delete(Admin $admin, Secteur $secteur)
+    public function delete(Authorizable $authorizable, Secteur $secteur): Response|bool
     {
-        return $admin->can('delete_secteur');
+        return $authorizable->can('delete_secteur');
     }
 
     /**
-     * Determine whether the admin can bulk delete.
+     * Determine whether the authorizable can bulk delete.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function deleteAny(Admin $admin)
+    public function deleteAny(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('delete_any_secteur');
+        return $authorizable->can('delete_any_secteur');
     }
 
     /**
-     * Determine whether the admin can permanently delete.
+     * Determine whether the authorizable can permanently delete.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Secteur  $secteur
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Secteur $secteur
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function forceDelete(Admin $admin, Secteur $secteur)
+    public function forceDelete(Authorizable $authorizable, Secteur $secteur): Response|bool
     {
-        return $admin->can('force_delete_secteur');
+        return $authorizable->can('force_delete_secteur');
     }
 
     /**
-     * Determine whether the admin can permanently bulk delete.
+     * Determine whether the authorizable can permanently bulk delete.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function forceDeleteAny(Admin $admin)
+    public function forceDeleteAny(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('force_delete_any_secteur');
+        return $authorizable->can('force_delete_any_secteur');
     }
 
     /**
      * Determine whether the admin can restore.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Secteur  $secteur
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Secteur $secteur
+     * @return Response|bool
      */
-    public function restore(Admin $admin, Secteur $secteur)
+    public function restore(Authorizable $authorizable, Secteur $secteur): Response|bool
     {
-        return $admin->can('restore_secteur');
+        return $authorizable->can('restore_secteur');
     }
 
     /**
      * Determine whether the admin can bulk restore.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
      */
-    public function restoreAny(Admin $admin)
+    public function restoreAny(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('restore_any_secteur');
+        return $authorizable->can('restore_any_secteur');
     }
 
     /**
      * Determine whether the admin can replicate.
      *
-     * @param  \App\Models\Admin  $admin
-     * @param  \App\Models\Secteur  $secteur
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param Secteur $secteur
+     * @return Response|bool
      */
-    public function replicate(Admin $admin, Secteur $secteur)
+    public function replicate(Authorizable $authorizable, Secteur $secteur): Response|bool
     {
-        return $admin->can('replicate_secteur');
+        return $authorizable->can('replicate_secteur');
     }
 
     /**
      * Determine whether the admin can reorder.
      *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
      */
-    public function reorder(Admin $admin)
+    public function reorder(Authorizable $authorizable): Response|bool
     {
-        return $admin->can('reorder_secteur');
+        return $authorizable->can('reorder_secteur');
     }
 
 }

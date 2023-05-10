@@ -23,7 +23,7 @@ class OrganismeFactory extends Factory
             'website'=> fake()->domainName(),
             'street' => fake()->streetAddress(),
             'city' => fake()->city(),
-            'type' => fake()->randomElement(['Public','Semi-Public','Privé','Association','ONG']),
+            'otype_id' => fake()->numberBetween(1,5),
             'zip' => fake()->postcode(),
             'country' => fake()->country()
         ];
