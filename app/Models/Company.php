@@ -18,10 +18,6 @@ class Company extends Model implements HasMedia
     use SoftDeletes;
     use HasFactory;
 
-
-    protected $guarded = [];
-
-
     public function secteurs(): BelongsToMany
     {
         return $this->belongsToMany(Secteur::class,'company_secteur');
@@ -57,6 +53,19 @@ class Company extends Model implements HasMedia
     public function sectors(): BelongsToMany
     {
         return $this->belongsToMany(Secteur::class,'company_secteur');
+    }
+
+    public function subscriptions(): hasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    public function activeSubscriptions():hasMany
+    {
+        return $this->hasMany(Subscription::class)
+            ->where('end_date', '>=', now())
+            ->orWhere('is_valid', true)
+            ->orderBy('end_date', 'asc');
     }
 
 

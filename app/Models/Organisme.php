@@ -21,6 +21,6 @@ class Organisme extends Model implements HasMedia
 
     public function type():belongsTo
     {
-        return $this->belongsTo(Otype::class);
+        return $this->belongsTo(Otype::class,'otype_id');
     }
 }

@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
             SecteurSeeder::class,
             StypeSeeder::class,
             OtypeSeeder::class,
-            OrganismeSeeder::class
+            OrganismeSeeder::class,
+            ProductSeeder::class,
+            discountSeeder::class,
         ]);
     }
 }

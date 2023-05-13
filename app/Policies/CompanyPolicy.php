@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Admin;
 use App\Models\Company;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;

@@ -3,21 +3,28 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OtypeResource\Pages;
-use App\Filament\Resources\OtypeResource\RelationManagers;
 use App\Models\Otype;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OtypeResource extends Resource
 {
     protected static ?string $model = Otype::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $slug = 'organismes/types';
+    protected static ?string $navigationLabel = 'Types';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $pluralModelLabel = 'Types d\'organisme';
+    protected static ?string $modelLabel = 'Type d\'organisme';
+    protected static ?string $navigationGroup = 'Gestion des organismes';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -50,11 +57,11 @@ class OtypeResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ManageOtypes::route('/'),
         ];
-    }    
+    }
 }

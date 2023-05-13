@@ -2,9 +2,10 @@
 
 namespace {{ namespace }};
 
-use {{ auth_model_fqcn }};
+
 use {{ model_fqcn }};
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 
@@ -13,141 +14,154 @@ class {{ modelPolicy }}
     use HandlesAuthorization;
 
     /**
-     * Determine whether the {{ auth_model_variable }} can view any models.
+     * Determine whether the authorizable can view any models.
      *
-     * @param  \{{ auth_model_fqcn }}  ${{ auth_model_variable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function viewAny({{ auth_model_name }} ${{ auth_model_variable }})
+    public function viewAny(Authorizable $authorizable):Response|bool
     {
-        return ${{ auth_model_variable }}->can('{{ ViewAny }}');
+        return $authorizable->can('{{ ViewAny }}');
     }
 
     /**
-     * Determine whether the {{ auth_model_variable }} can view the model.
+     * Determine whether the authorizable can view the model.
      *
-     * @param  \{{ auth_model_fqcn }}  ${{ auth_model_variable }}
-     * @param  \{{ model_fqcn }}  ${{ model_variable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param  {{ model_name }} ${{ model_variable }}
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function view({{ auth_model_name }} ${{ auth_model_variable }}, {{ model_name }} ${{ model_variable }})
+    public function view(Authorizable $authorizable, {{ model_name }} ${{ model_variable }}):Response|bool
     {
-        return ${{ auth_model_variable }}->can('{{ View }}');
+        return $authorizable->can('{{ View }}');
     }
 
     /**
-     * Determine whether the {{ auth_model_variable }} can create models.
+     * Determine whether the authorizable can create models.
      *
-     * @param  \{{ auth_model_fqcn }}  ${{ auth_model_variable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
+
      */
-    public function create({{ auth_model_name }} ${{ auth_model_variable }})
+    public function create(Authorizable $authorizable):Response|bool
     {
-        return ${{ auth_model_variable }}->can('{{ Create }}');
+        return $authorizable->can('{{ Create }}');
     }
 
     /**
-     * Determine whether the {{ auth_model_variable }} can update the model.
+     * Determine whether the Authorizable can update the model.
      *
-     * @param  \{{ auth_model_fqcn }}  ${{ auth_model_variable }}
-     * @param  \{{ model_fqcn }}  ${{ model_variable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param  {{ model_name }} ${{ model_variable }}
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function update({{ auth_model_name }} ${{ auth_model_variable }}, {{ model_name }} ${{ model_variable }})
+    public function update(Authorizable $authorizable, {{ model_name }} ${{ model_variable }}):Response|bool
     {
-        return ${{ auth_model_variable }}->can('{{ Update }}');
+        return $authorizable->can('{{ Update }}');
     }
 
     /**
-     * Determine whether the {{ auth_model_variable }} can delete the model.
+     * Determine whether the Authorizable  can delete the model.
      *
-     * @param  \{{ auth_model_fqcn }}  ${{ auth_model_variable }}
-     * @param  \{{ model_fqcn }}  ${{ model_variable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param  {{ model_name }}  ${{ model_variable }}
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function delete({{ auth_model_name }} ${{ auth_model_variable }}, {{ model_name }} ${{ model_variable }})
+    public function delete(Authorizable $authorizable, {{ model_name }} ${{ model_variable }}):Response|bool
     {
-        return ${{ auth_model_variable }}->can('{{ Delete }}');
+        return $authorizable->can('{{ Delete }}');
     }
 
     /**
-     * Determine whether the {{ auth_model_variable }} can bulk delete.
+     * Determine whether the Authorizable can bulk delete.
      *
-     * @param  \{{ auth_model_fqcn }}  ${{ auth_model_variable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function deleteAny({{ auth_model_name }} ${{ auth_model_variable }})
+    public function deleteAny(Authorizable $authorizable):Response|bool
     {
-        return ${{ auth_model_variable }}->can('{{ DeleteAny }}');
+        return $authorizable->can('{{ DeleteAny }}');
     }
 
     /**
-     * Determine whether the {{ auth_model_variable }} can permanently delete.
+     * Determine whether the Authorizable can permanently delete.
      *
-     * @param  \{{ auth_model_fqcn }}  ${{ auth_model_variable }}
-     * @param  \{{ model_fqcn }}  ${{ model_variable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param  {{ model_name }}  ${{ model_variable }}
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function forceDelete({{ auth_model_name }} ${{ auth_model_variable }}, {{ model_name }} ${{ model_variable }})
+    public function forceDelete(Authorizable $authorizable, {{ model_name }} ${{ model_variable }}):Response|bool
     {
-        return ${{ auth_model_variable }}->can('{{ ForceDelete }}');
+        return $authorizable->can('{{ ForceDelete }}');
     }
 
     /**
-     * Determine whether the {{ auth_model_variable }} can permanently bulk delete.
+     * Determine whether the Authorizable can permanently bulk delete.
      *
-     * @param  \{{ auth_model_fqcn }}  ${{ auth_model_variable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function forceDeleteAny({{ auth_model_name }} ${{ auth_model_variable }})
+    public function forceDeleteAny(Authorizable $authorizable):Response|bool
     {
-        return ${{ auth_model_variable }}->can('{{ ForceDeleteAny }}');
+        return $authorizable->can('{{ ForceDeleteAny }}');
     }
 
     /**
-     * Determine whether the {{ auth_model_variable }} can restore.
+     * Determine whether the Authorizable can restore.
      *
-     * @param  \{{ auth_model_fqcn }}  ${{ auth_model_variable }}
-     * @param  \{{ model_fqcn }}  ${{ model_variable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param  {{ model_name }}  ${{ model_variable }}
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function restore({{ auth_model_name }} ${{ auth_model_variable }}, {{ model_name }} ${{ model_variable }})
+    public function restore(Authorizable $authorizable, {{ model_name }} ${{ model_variable }}):Response|bool
     {
-        return ${{ auth_model_variable }}->can('{{ Restore }}');
+        return $authorizable->can('{{ Restore }}');
     }
 
     /**
-     * Determine whether the {{ auth_model_variable }} can bulk restore.
+     * Determine whether the Authorizable can bulk restore.
      *
-     * @param  \{{ auth_model_fqcn }}  ${{ auth_model_variable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function restoreAny({{ auth_model_name }} ${{ auth_model_variable }})
+    public function restoreAny(Authorizable $authorizable):Response|bool
     {
-        return ${{ auth_model_variable }}->can('{{ RestoreAny }}');
+        return $authorizable->can('{{ RestoreAny }}');
     }
 
     /**
-     * Determine whether the {{ auth_model_variable }} can replicate.
+     * Determine whether the Authorizable can replicate.
      *
-     * @param  \{{ auth_model_fqcn }}  ${{ auth_model_variable }}
-     * @param  \{{ model_fqcn }}  ${{ model_variable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @param  {{ model_name }}  ${{ model_variable }}
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function replicate({{ auth_model_name }} ${{ auth_model_variable }}, {{ model_name }} ${{ model_variable }})
+    public function replicate(Authorizable $authorizable, {{ model_name }} ${{ model_variable }}):Response|bool
     {
-        return ${{ auth_model_variable }}->can('{{ Replicate }}');
+        return $authorizable->can('{{ Replicate }}');
     }
 
     /**
-     * Determine whether the {{ auth_model_variable }} can reorder.
+     * Determine whether the Authorizable can reorder.
      *
-     * @param  \{{ auth_model_fqcn }}  ${{ auth_model_variable }}
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param Authorizable $authorizable
+     * @return Response|bool
+     * @throws AuthorizationException
      */
-    public function reorder({{ auth_model_name }} ${{ auth_model_variable }})
+    public function reorder(Authorizable $authorizable):Response|bool
     {
-        return ${{ auth_model_variable }}->can('{{ Reorder }}');
+        return $authorizable->can('{{ Reorder }}');
     }
 
 }

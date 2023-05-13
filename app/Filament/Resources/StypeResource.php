@@ -17,7 +17,12 @@ class StypeResource extends Resource
 {
     protected static ?string $model = Stype::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $slug = 'secteurs/types';
+    protected static ?string $navigationLabel = 'Types de secteur';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $pluralModelLabel = 'Types de secteur';
+    protected static ?string $modelLabel = 'Type de secteur';
+    protected static ?string $navigationGroup = 'Parmètres des annonces';
 
     public static function form(Form $form): Form
     {

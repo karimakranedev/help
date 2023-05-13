@@ -5,9 +5,13 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\CompanyResource\Pages;
 use App\Models\Company;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -19,13 +23,31 @@ use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 use Ysfkaya\FilamentPhoneInput\PhoneInput;
 
 class CompanyResource extends Resource
 {
     protected static ?string $model = Company::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $slug = 'clients';
+
+    protected static ?string $recordTitleAttribute = 'name';
+
+    protected static ?string $navigationLabel = 'Clients';
+
+    protected static ?string $navigationIcon = 'heroicon-o-office-building';
+
+    protected static ?string $pluralModelLabel = 'Clients';
+
+    protected static ?string $modelLabel = 'Client';
+
+    protected static ?string $navigationGroup = 'Gestion des clients';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -39,7 +61,71 @@ class CompanyResource extends Resource
                                     ->collection('logo-images')
                                     ->disableLabel(),
                             ])
-                            ->collapsible(),
+                            ->collapsed(),
+                        Section::make('Propriétaire')
+                            ->schema([
+                               Fieldset::make()
+                                ->relationship('owner')
+                                ->schema([
+                                    Grid::make()
+                                        ->schema([
+                                            Select::make('title')
+                                                ->options([
+                                                    'Mr.' => 'Mr.',
+                                                    'Mme.' => 'Mme.',
+                                                    'Mlle.' => 'Mlle.',
+                                                ])
+                                                ->required(),
+                                        ]),
+                                    Grid::make()
+                                        ->schema([
+                                            TextInput::make('first_name')
+                                                ->maxValue(50)
+                                                ->required(),
+
+                                            TextInput::make('last_name')
+                                                ->required()
+                                                ->maxValue(50),
+                                        ]),
+                                    Grid::make()
+                                        ->schema([
+                                            TextInput::make('email')
+                                                ->label(__('Email'))
+                                                ->email()
+                                                ->required()
+                                                ->rule(
+                                                    fn($record) => 'unique:users,email,'
+                                                        . ($record ? $record->id : 'NULL')
+                                                        . ',id,deleted_at,NULL'
+                                                )
+                                                ->maxLength(255),
+
+                                            PhoneInput::make('phone')
+                                                ->required()
+                                                ->preferredCountries(['ma'])
+                                                ->separateDialCode(true)
+                                                ->formatOnDisplay(true)
+                                                ->onlyCountries(['ma'])
+                                                ->unique(ignoreRecord: true),
+                                        ]),
+                                    TextInput::make('password')
+                                        ->password()
+                                        ->columnSpan('full')
+                                        ->required()
+                                        ->dehydrateStateUsing(function ($state) {
+                                            return Hash::make($state);
+                                        }),
+                                    CheckboxList::make('roles')
+                                        //->relationship('roles', 'name')
+                                        ->relationship('roles', 'name',fn(Builder $query) =>
+                                           $query->Where('guard_name', '=','web'))
+                                        ->columns(3)
+                                        ->label(trans('Roles')),
+
+                                    Hidden::make('is_owner')
+                                        ->default(true)
+                                ])
+                            ])->visibleOn('create'),
                         Card::make()
                             ->schema([
                                 Grid::make()
@@ -47,6 +133,7 @@ class CompanyResource extends Resource
                                         TextInput::make('name')
                                             ->label('Nom de la société')
                                             ->required(),
+
                                     ]),
 
                                 TextInput::make('founded_year')
@@ -96,7 +183,7 @@ class CompanyResource extends Resource
                                         TextInput::make('ice'),
                                         TextInput::make('cnss'),
                                     ]),
-                            ]),
+                            ])->collapsed(),
                         Section::make('Coordonnées')
                             ->schema([
                                 Grid::make()
@@ -124,6 +211,16 @@ class CompanyResource extends Resource
                                     ]),
                             ]),
 
+                        Section::make("Secteurs d'activités")
+                            ->schema([
+                                Grid::make(1)
+                                    ->schema([
+                                        CheckboxList::make('secteurs')
+                                            ->relationship('secteurs', 'name')
+                                            ->columns(['sm'=>1,'lg'=>2])
+                                            ->label(trans('Secteurs')),
+                                    ])
+                            ]),
 
                         Grid::make()
                             ->schema([
@@ -141,16 +238,19 @@ class CompanyResource extends Resource
 
                 Grid::make()
                     ->schema([
-                        Section::make('Société')
+                        Section::make('Proriétaire')
                             ->schema([
-                                Placeholder::make('created_at')
-                                    ->label('Created at')
-                                    ->content(fn (Company $record): ?string => $record->created_at?->diffForHumans()),
+                                Placeholder::make('owner_name')
+                                    ->label('')
+                                    ->content(fn ($record) => $record->owner?->name),
+                                Placeholder::make('owner_email')
+                                    ->label('')
+                                    ->content(fn ($record) => $record->owner?->email),
+                                Placeholder::make('owner_phone')
+                                    ->label('')
+                                    ->content(fn ($record) => $record->owner?->phone),
+                            ])->hidden(fn (?Company $record) => $record->owner === null),
 
-                                Placeholder::make('updated_at')
-                                    ->label('Last modified at')
-                                    ->content(fn (Company $record): ?string => $record->updated_at?->diffForHumans()),
-                            ]),
                         Card::make()
                             ->schema([
                                 Placeholder::make('created_at')

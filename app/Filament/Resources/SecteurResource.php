@@ -20,7 +20,11 @@ class SecteurResource extends Resource
 {
     protected static ?string $model = Secteur::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationLabel = 'Secteurs d\'activités';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-list';
+    protected static ?string $pluralModelLabel = 'Secteurs d\'activités';
+    protected static ?string $modelLabel = 'Secteur d\'activité';
+    protected static ?string $navigationGroup = 'Parmètres des annonces';
 
     public static function form(Form $form): Form
     {

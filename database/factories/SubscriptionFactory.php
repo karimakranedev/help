@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
-class StypeFactory extends Factory
+class SubscriptionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,7 +15,7 @@ class StypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->sentence(1)
+            //
         ];
     }
 }

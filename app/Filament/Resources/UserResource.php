@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
+use App\Models\Company;
 use App\Models\User;
 use Filament\Forms\Components\Card;
 use Filament\Forms;
@@ -19,9 +20,8 @@ use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Ysfkaya\FilamentPhoneInput\PhoneInput;
 
 class UserResource extends Resource
@@ -29,8 +29,21 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?string $slug = 'users';
+    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $navigationLabel = 'Utilisateurs';
 
-    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+
+    protected static ?string $pluralModelLabel = 'Utilisateurs';
+
+    protected static ?string $modelLabel = 'Utilisateur';
+
+    protected static ?string $navigationGroup = 'Gestion des clients';
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
@@ -41,9 +54,11 @@ class UserResource extends Resource
                         Grid::make()
                             ->schema([
                                 Select::make('company_id')
-                                    ->relationship('company', 'name',fn (Builder $query)
-                                        => $query
-                                            ->whereDoesntHave('users' ))
+                                    ->options(fn($get)=> Company::whereDoesntHave('users')
+                                        ->orWhereHas('users',function ($query) use ($get) {
+                                            return  $query->where('users.company_id', '=',$get('company_id'));
+                                        })->pluck('name','id')->toArray()
+                                    )
                                     ->searchable()
                                     ->preload()
                                     ->createOptionForm([
@@ -175,6 +190,8 @@ class UserResource extends Resource
                             ->schema([
                                 CheckboxList::make('roles')
                                     ->relationship('roles', 'name')
+                                    //->relationship('roles', 'name',fn(Builder $query) =>
+                                     //   $query->Where('guard_name', '=','*'))
                                     ->label(trans('Roles')),
                             ])->columnSpan(['lg' => 1]),
 
@@ -251,4 +268,6 @@ class UserResource extends Resource
     {
         return ['title', 'name', 'email'];
     }
+
+
 }

@@ -25,7 +25,7 @@ class User extends Authenticatable implements AuthorizableContract
     use Notifiable;
     use HasAvatarUrl;
 
-    protected $guard_name='web';
+    protected string $guard_name='web';
 
 
     /**

@@ -20,7 +20,6 @@ return new class extends Migration
 
             $table->mediumText('description')->nullable();
 
-            //$table->string('type')->nullable();// Ministère , Privé ...
             $table->string('email')->nullable()->unique();
             $table->string('phone_1')->nullable();
             $table->string('phone_2')->nullable();

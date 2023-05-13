@@ -3,13 +3,13 @@
 namespace App\Policies;
 
 
-use App\Models\User;
+use App\Models\Organisme;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 
-class UserPolicy
+class OrganismePolicy
 {
     use HandlesAuthorization;
 
@@ -22,20 +22,20 @@ class UserPolicy
      */
     public function viewAny(Authorizable $authorizable):Response|bool
     {
-        return $authorizable->can('view_any_user');
+        return $authorizable->can('view_any_organisme');
     }
 
     /**
      * Determine whether the authorizable can view the model.
      *
      * @param Authorizable $authorizable
-     * @param  User $user
+     * @param  Organisme $organisme
      * @return Response|bool
      * @throws AuthorizationException
      */
-    public function view(Authorizable $authorizable, User $user):Response|bool
+    public function view(Authorizable $authorizable, Organisme $organisme):Response|bool
     {
-        return $authorizable->can('view_user');
+        return $authorizable->can('view_organisme');
     }
 
     /**
@@ -48,33 +48,33 @@ class UserPolicy
      */
     public function create(Authorizable $authorizable):Response|bool
     {
-        return $authorizable->can('create_user');
+        return $authorizable->can('create_organisme');
     }
 
     /**
      * Determine whether the Authorizable can update the model.
      *
      * @param Authorizable $authorizable
-     * @param  User $user
+     * @param  Organisme $organisme
      * @return Response|bool
      * @throws AuthorizationException
      */
-    public function update(Authorizable $authorizable, User $user):Response|bool
+    public function update(Authorizable $authorizable, Organisme $organisme):Response|bool
     {
-        return $authorizable->can('update_user');
+        return $authorizable->can('update_organisme');
     }
 
     /**
      * Determine whether the Authorizable  can delete the model.
      *
      * @param Authorizable $authorizable
-     * @param  User  $user
+     * @param  Organisme  $organisme
      * @return Response|bool
      * @throws AuthorizationException
      */
-    public function delete(Authorizable $authorizable, User $user):Response|bool
+    public function delete(Authorizable $authorizable, Organisme $organisme):Response|bool
     {
-        return $authorizable->can('delete_user');
+        return $authorizable->can('delete_organisme');
     }
 
     /**
@@ -86,20 +86,20 @@ class UserPolicy
      */
     public function deleteAny(Authorizable $authorizable):Response|bool
     {
-        return $authorizable->can('delete_any_user');
+        return $authorizable->can('delete_any_organisme');
     }
 
     /**
      * Determine whether the Authorizable can permanently delete.
      *
      * @param Authorizable $authorizable
-     * @param  User  $user
+     * @param  Organisme  $organisme
      * @return Response|bool
      * @throws AuthorizationException
      */
-    public function forceDelete(Authorizable $authorizable, User $user):Response|bool
+    public function forceDelete(Authorizable $authorizable, Organisme $organisme):Response|bool
     {
-        return $authorizable->can('force_delete_user');
+        return $authorizable->can('force_delete_organisme');
     }
 
     /**
@@ -111,20 +111,20 @@ class UserPolicy
      */
     public function forceDeleteAny(Authorizable $authorizable):Response|bool
     {
-        return $authorizable->can('force_delete_any_user');
+        return $authorizable->can('force_delete_any_organisme');
     }
 
     /**
      * Determine whether the Authorizable can restore.
      *
      * @param Authorizable $authorizable
-     * @param  User  $user
+     * @param  Organisme  $organisme
      * @return Response|bool
      * @throws AuthorizationException
      */
-    public function restore(Authorizable $authorizable, User $user):Response|bool
+    public function restore(Authorizable $authorizable, Organisme $organisme):Response|bool
     {
-        return $authorizable->can('restore_user');
+        return $authorizable->can('restore_organisme');
     }
 
     /**
@@ -136,20 +136,20 @@ class UserPolicy
      */
     public function restoreAny(Authorizable $authorizable):Response|bool
     {
-        return $authorizable->can('restore_any_user');
+        return $authorizable->can('restore_any_organisme');
     }
 
     /**
      * Determine whether the Authorizable can replicate.
      *
      * @param Authorizable $authorizable
-     * @param  User  $user
+     * @param  Organisme  $organisme
      * @return Response|bool
      * @throws AuthorizationException
      */
-    public function replicate(Authorizable $authorizable, User $user):Response|bool
+    public function replicate(Authorizable $authorizable, Organisme $organisme):Response|bool
     {
-        return $authorizable->can('replicate_user');
+        return $authorizable->can('replicate_organisme');
     }
 
     /**
@@ -161,7 +161,7 @@ class UserPolicy
      */
     public function reorder(Authorizable $authorizable):Response|bool
     {
-        return $authorizable->can('reorder_user');
+        return $authorizable->can('reorder_organisme');
     }
 
 }
