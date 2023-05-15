@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -22,5 +23,10 @@ class Organisme extends Model implements HasMedia
     public function type():belongsTo
     {
         return $this->belongsTo(Otype::class,'otype_id');
+    }
+
+    public function consultations():hasMany
+    {
+        return $this->hasMany(Consultation::class);
     }
 }

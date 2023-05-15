@@ -22,6 +22,14 @@ class DatabaseSeeder extends Seeder
             OrganismeSeeder::class,
             ProductSeeder::class,
             discountSeeder::class,
+            ConsultationTypeSeeder::class,
+            ConsultationSeeder::class,
+            ConsultationSecteurSeeder::class,
+            ClasseSeeder::class,
+            QualificationSeeder::class,
+            AgreementSeeder::class,
+            RegionVilleSeeder::class,
+
         ]);
     }
 }

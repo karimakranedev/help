@@ -25,6 +25,10 @@ class SecteurResource extends Resource
     protected static ?string $pluralModelLabel = 'Secteurs d\'activités';
     protected static ?string $modelLabel = 'Secteur d\'activité';
     protected static ?string $navigationGroup = 'Parmètres des annonces';
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {

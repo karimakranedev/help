@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained();
             $table->foreignId('discount_id')->nullable()->constrained();
             $table->timestamp('start_date');
-            $table->timestamp('end_date');
-            $table->decimal('price', 10, 2);
+            $table->timestamp('end_date')->nullable();
+            $table->decimal('price', 10, 2)->nullable();
             $table->dateTime('payment_date')->nullable();
             $table->boolean('is_valid')->default(false);
             $table->boolean('is_paid')->default(false);

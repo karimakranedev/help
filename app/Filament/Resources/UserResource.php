@@ -20,7 +20,6 @@ use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Hash;
 use Ysfkaya\FilamentPhoneInput\PhoneInput;
 

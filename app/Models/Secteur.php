@@ -15,4 +15,9 @@ class Secteur extends Model
         return $this->belongsToMany(Company::class,'company_secteur');
     }
 
+    public function consultations(): belongsToMany
+    {
+        return $this->belongsToMany(Consultation::class);
+    }
+
 }

@@ -15,7 +15,7 @@ class OtypeResource extends Resource
     protected static ?string $model = Otype::class;
 
     protected static ?string $slug = 'organismes/types';
-    protected static ?string $navigationLabel = 'Types';
+    protected static ?string $navigationLabel = 'Types d\'organisme';
     protected static ?string $navigationIcon = 'heroicon-o-tag';
     protected static ?string $pluralModelLabel = 'Types d\'organisme';
     protected static ?string $modelLabel = 'Type d\'organisme';
